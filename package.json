@@ -1,0 +1,23 @@
+{
+  "name": "region_node",
+  "version": "1.0.0",
+  "description": "region node iot project",
+  "main": "server.js",
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "iot"
+  ],
+  "author": "Toan Nhu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "mysql": "^2.14.1",
+    "nodemon": "^1.18.6"
+  }
+}
