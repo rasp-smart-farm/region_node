@@ -3,7 +3,7 @@ var control = express.Router();
 var database = require("../database/database");
 var cors = require("cors");
 var mqtt = require('mqtt');
-var client = mqtt.connect('ws://pi.toannhu.com:8080');
+var client = mqtt.connect('ws://tts.toannhu.com:8080');
 // var client  = mqtt.connect('mqtt://m15.cloudmqtt.com:12071', {
 // 	username: 'kbhgwydc',
 // 	password: 'H2i6QimmVPWj'
@@ -173,8 +173,9 @@ control.get("/on/", function(req, res) {
 		} else {
 			connection.query("UPDATE `control` SET " + device + " = '1' WHERE `name` = ?", [node], function(err, rows, fields) {
 				if (!err) {
-					client.publish('myTopic', JSON.stringify({device: node, status: device}));
-					console.log('Message Sent');
+					let message = JSON.stringify({type: 'control', node: node, device: device, status: 1});
+					client.publish('smartFarm', message);
+					console.log('Message Sent: ' + message);
 					appData["error"] = 0;
 					appData["data"] = "Success";
 					res.status(200).json(appData);
@@ -207,8 +208,9 @@ control.get("/off/", function(req, res) {
 		} else {
 			connection.query("UPDATE `control` SET " + device + " = '0' WHERE `name` = ?", [node], function(err, rows, fields) {
 				if (!err) {
-					client.publish('myTopic', JSON.stringify({device: node, status: device}));
-					console.log('Message Sent');
+					let message = JSON.stringify({type: 'control', node: node, device: device, status: 0});
+					client.publish('smartFarm', message);
+					console.log('Message Sent: ' + message);
 					appData["error"] = 0;
 					appData["data"] = "Success";
 					res.status(200).json(appData);
